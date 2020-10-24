@@ -11,8 +11,9 @@
 
 	<properties>
 		<javaee.version>8.0.1</javaee.version>
-
+		<spring.version>5.2.9.RELEASE</spring.version>
 	</properties>
+
 
 	<dependencies>
 
@@ -31,6 +32,24 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Spring-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+
+	<!-- JSTL -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+
+
 	</dependencies>
 	<build>
 		<!--Update to latest version of Java -->
