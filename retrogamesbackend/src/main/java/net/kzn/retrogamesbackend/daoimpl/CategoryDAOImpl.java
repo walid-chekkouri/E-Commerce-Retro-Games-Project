@@ -3,9 +3,13 @@ package net.kzn.retrogamesbackend.daoimpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import net.kzn.retrogamesbackend.dao.CategoryDAO;
 import net.kzn.retrogamesbackend.dto.Category;
 
+
+@Repository("categoryDAO")
 public class CategoryDAOImpl implements CategoryDAO {
 
 	private static List<Category> categories = new ArrayList<>();
