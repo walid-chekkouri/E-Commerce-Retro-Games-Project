@@ -33,6 +33,9 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="${css}/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Readable Theme -->
+    <link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="${css}/myapp.css" rel="stylesheet">
@@ -48,10 +51,13 @@
 
 <body>
 
+	<div class="wrapper">
+
     <!-- Navigation -->
 	<%@include file="./shared/navbar.jsp" %>
 	
     <!-- Page Content -->
+    <div class="content">
     <c:if test="${userClickHome == true }">
  	<%@include file="home.jsp" %>
 	</c:if>
@@ -65,6 +71,8 @@
     <c:if test="${userClickContact == true }">
  	<%@include file="contact.jsp" %>
 	</c:if>
+	
+	</div>
 	
 	<!-- Footer -->
 	<%@include file="./shared/footer.jsp" %>
@@ -80,6 +88,8 @@
     
     <!-- Self coded javascript -->
     <script src="${js}/myapp.js"></script>
+
+	</div>
 
 </body>
 
