@@ -18,8 +18,8 @@ public class CategoryDAOImpl implements CategoryDAO {
 		Category category = new Category();
 		//adding first category
 		category.setId(1);
-		category.setName("Television");
-		category.setDescription("This is some description for television!");
+		category.setName("Indie");
+		category.setDescription("This is some description for Indie!");
 		category.setImageURL("CAT_1.png");
 		
 		categories.add(category);
@@ -27,8 +27,8 @@ public class CategoryDAOImpl implements CategoryDAO {
 		//second category
 		category = new Category();
 		category.setId(2);
-		category.setName("Mobile");
-		category.setDescription("This is some description for mobile!");
+		category.setName("Action");
+		category.setDescription("This is some description for action!");
 		category.setImageURL("CAT_2.png");
 		
 		categories.add(category);
@@ -36,12 +36,29 @@ public class CategoryDAOImpl implements CategoryDAO {
 		//third category
 		category = new Category();
 		category.setId(3);
-		category.setName("Laptop");
-		category.setDescription("This is some description for laptop!");
+		category.setName("Racing");
+		category.setDescription("This is some description for racing!");
 		category.setImageURL("CAT_3.png");
 				
 		categories.add(category);
 		
+		//fourth category
+		category = new Category();
+		category.setId(4);
+		category.setName("Sports");
+		category.setDescription("This is some description for sports!");
+		category.setImageURL("CAT_4.png");
+						
+		categories.add(category);
+				
+		//fifth category
+		category = new Category();
+		category.setId(5);
+		category.setName("Strategy");
+		category.setDescription("This is some description for strategy!");
+		category.setImageURL("CAT_5.png");
+						
+		categories.add(category);
 	}
 	
 	@Override
