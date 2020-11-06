@@ -1,4 +1,4 @@
-<p class="lead">Shop Name</p>
+<p class="lead">Categories</p>
                 <div class="list-group">
                 
                 
