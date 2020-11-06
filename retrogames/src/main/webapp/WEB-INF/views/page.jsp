@@ -25,7 +25,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Online Shopping - ${title}</title>
+    <title>RetroGames - ${title}</title>
 	
 	<script>
 		window.menu = '${title}';
