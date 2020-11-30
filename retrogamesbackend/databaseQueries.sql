@@ -22,7 +22,7 @@ CREATE TABLE user_detail (
 	password VARCHAR(50),
 	email VARCHAR(100),
 	contact_number VARCHAR(15),	
-	CONSTRAINT pk_user_id PRIMARY KEY(id),
+	CONSTRAINT pk_user_id PRIMARY KEY(id)
 );
 
 
@@ -54,7 +54,7 @@ CREATE TABLE product (
 	views INT DEFAULT 0,
 	CONSTRAINT pk_product_id PRIMARY KEY (id),
  	CONSTRAINT fk_product_category_id FOREIGN KEY (category_id) REFERENCES category (id),
-	CONSTRAINT fk_product_supplier_id FOREIGN KEY (supplier_id) REFERENCES user_detail(id),	
+	CONSTRAINT fk_product_supplier_id FOREIGN KEY (supplier_id) REFERENCES user_detail(id)
 );	
 
 
