@@ -1,6 +1,6 @@
 <div class="container">
 
-	<div class="row">
+	<div class="row" style="border: 1px solid #333;">
 	
 		<h1>About Us</h1>
 		<hr/>
