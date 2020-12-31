@@ -80,8 +80,14 @@ public class ManagementController {
 
 	//handling product submission
 	@RequestMapping(value="/products", method=RequestMethod.POST)
-	public String handleProductSubmission(@ModelAttribute("product") Product mProduct) {
+	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model) {
 		
+		if(results.hasErrors()) {
+			model.addAttribute("userClickManageProducts",true);
+			model.addAttribute("title", "Manage Products");
+			model.addAttribute("message", "Validation fails for adding the product!");
+			return "page";
+		}
 		
 		logger.info(mProduct.toString());
 		// create a newproduct record
