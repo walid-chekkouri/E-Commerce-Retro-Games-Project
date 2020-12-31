@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.persistence.Transient;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Product {
@@ -46,6 +48,19 @@ public class Product {
 		private int supplierId;
 		private int purchases;
 		private int views;
+		
+		
+		@Transient
+		private MultipartFile file;
+		
+		public MultipartFile getFile() {
+			return file;
+		}
+
+		public void setFile(MultipartFile file) {
+			this.file = file;
+		}
+		
 		
 		// default constructor
 		public Product() {

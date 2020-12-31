@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.kzn.retrogames.util.FileUploadUtility;
+import net.kzn.retrogames.validator.ProductValidator;
 import net.kzn.retrogamesbackend.dao.CategoryDAO;
 import net.kzn.retrogamesbackend.dao.ProductDAO;
 import net.kzn.retrogamesbackend.dto.Category;
@@ -80,7 +82,13 @@ public class ManagementController {
 
 	//handling product submission
 	@RequestMapping(value="/products", method=RequestMethod.POST)
-	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model) {
+	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model, HttpServletRequest request) {
+		
+		
+
+		
+		new ProductValidator().validate(mProduct, results);
+		
 		
 		if(results.hasErrors()) {
 			model.addAttribute("userClickManageProducts",true);
@@ -92,6 +100,14 @@ public class ManagementController {
 		logger.info(mProduct.toString());
 		// create a newproduct record
 		productDAO.add(mProduct);
+		
+		
+		if(!mProduct.getFile().getOriginalFilename().equals(""))
+		{
+			FileUploadUtility.uploadFile(request, mProduct.getFile(), mProduct.getCode());
+		}
+		
+		
 		return "redirect:/manage/products?operation=product";
 	
 	}
