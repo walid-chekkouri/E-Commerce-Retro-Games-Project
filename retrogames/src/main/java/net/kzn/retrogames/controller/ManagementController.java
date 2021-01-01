@@ -114,6 +114,23 @@ public class ManagementController {
 	
 	
 	
+	
+
+	@RequestMapping("/{id}/product")
+	public ModelAndView showEditProduct(@PathVariable int id) {		
+
+		ModelAndView mv = new ModelAndView("page");	
+		mv.addObject("title","Product Management");		
+		mv.addObject("userClickManageProduct",true);
+		
+		// Product nProduct = new Product();		
+		mv.addObject("product", productDAO.get(id));
+
+			
+		return mv;
+		
+	}
+	
 	@RequestMapping(value = "/product/{id}/activation", method=RequestMethod.POST)
 	@ResponseBody
 	public String mhandleProductActivation(@PathVariable int id) 
