@@ -42,7 +42,7 @@ body {
 .ratings {
     padding-right: 10px;
     padding-left: 10px;
-    color:#d17581;
+    color: #d17581;
 }
 
 .thumbnail {
@@ -89,18 +89,9 @@ footer {
 	height: 100px;
 	
 }
-.help-block{
-	color:#FF0000;
 
-	
-}
-
-
-
-.adminDataTableImg {
-	
-	height:50px;
-	width:50px;
+.has-success {
+	color: #4582ec;
 }
 
 /*Toggle Switch code*/

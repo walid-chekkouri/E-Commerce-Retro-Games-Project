@@ -27,97 +27,54 @@ import net.kzn.retrogamesbackend.dto.Product;
 
 
 
-
-
-
-
-
 @Controller
 @RequestMapping("/manage")
 public class ManagementController {
-	
-	@Autowired
-	private CategoryDAO categoryDAO;
-	
+
+	private static final Logger logger = LoggerFactory.getLogger(ManagementController.class);
+
 	@Autowired
 	private ProductDAO productDAO;
 	
-	private static final Logger logger = LoggerFactory.getLogger(ManagementController.class);
+	@Autowired
+	private CategoryDAO categoryDAO;		
+
+	@Autowired 
+	private HttpServletRequest request;
 	
-	
-	@RequestMapping(value="/products", method=RequestMethod.GET)
-	public ModelAndView showManageProducts(@RequestParam(name="operation",required=false) String operation) {
+	@RequestMapping("/products")
+	public ModelAndView manageProduct(@RequestParam(name="success",required=false)String success) {		
+
+		ModelAndView mv = new ModelAndView("page");	
+		mv.addObject("title","Product Management");		
+		mv.addObject("userClickManageProduct",true);
 		
+		Product nProduct = new Product();
 		
-	ModelAndView mv =new ModelAndView("page");
-	mv.addObject("userClickManageProducts", true);
-	
-	mv.addObject("title", "Manage Products");
-	Product nProduct =new Product();
-	// set few of the fields
-	nProduct.setSupplierId(1);
-	nProduct.setActive(true);
-	mv.addObject("product",nProduct);
-	if(operation!=null) {
+		// assuming that the user is ADMIN
+		// later we will fixed it based on user is SUPPLIER or ADMIN
+		nProduct.setSupplierId(1);
+		nProduct.setActive(true);
+
+		mv.addObject("product", nProduct);
+
 		
-		if(operation.equals("product")) {
-			
-			
-		mv.addObject("message", "Product Submitted Succesfully!");			
-			
+		if(success != null) {
+			if(success.equals("product")){
+				mv.addObject("message", "Product submitted successfully!");
+			}	
+			else if (success.equals("category")) {
+				mv.addObject("message", "Category submitted successfully!");
+			}
 		}
-		
-		
-	}
-	
-	
-	return mv;
-		
-		
-		
-		
-		
+			
+		return mv;
 		
 	}
 
-	//handling product submission
-	@RequestMapping(value="/products", method=RequestMethod.POST)
-	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model, HttpServletRequest request) {
-		
-		
-
-		
-		new ProductValidator().validate(mProduct, results);
-		
-		
-		if(results.hasErrors()) {
-			model.addAttribute("userClickManageProducts",true);
-			model.addAttribute("title", "Manage Products");
-			model.addAttribute("message", "Validation fails for adding the product!");
-			return "page";
-		}
-		
-		logger.info(mProduct.toString());
-		// create a newproduct record
-		productDAO.add(mProduct);
-		
-		
-		if(!mProduct.getFile().getOriginalFilename().equals(""))
-		{
-			FileUploadUtility.uploadFile(request, mProduct.getFile(), mProduct.getCode());
-		}
-		
-		
-		return "redirect:/manage/products?operation=product";
 	
-	}
-	
-	
-	
-	
-
 	@RequestMapping("/{id}/product")
-	public ModelAndView showEditProduct(@PathVariable int id) {		
+	public ModelAndView manageProductEdit(@PathVariable int id) {		
 
 		ModelAndView mv = new ModelAndView("page");	
 		mv.addObject("title","Product Management");		
@@ -131,23 +88,77 @@ public class ManagementController {
 		
 	}
 	
+	
+	@RequestMapping(value = "/product", method=RequestMethod.POST)
+	public String managePostProduct(@Valid @ModelAttribute("product") Product mProduct, BindingResult results, Model model) {
+
+	
+		if(mProduct.getId() == 0) {
+			new ProductValidator().validate(mProduct, results);
+		}
+		else {
+			if(!mProduct.getFile().getOriginalFilename().equals("")) {
+				new ProductValidator().validate(mProduct, results);
+			}
+			
+		}
+		
+		if(results.hasErrors()) {
+			model.addAttribute("message", "Validation fails for adding the product!");
+			model.addAttribute("userClickManageProduct",true);
+			return "page";
+		}			
+
+		
+		if(mProduct.getId() == 0 ) {
+			productDAO.add(mProduct);
+		}
+		else {
+			productDAO.update(mProduct);
+		}
+	
+		 //upload the file
+		 if(mProduct.getId() == 0 || mProduct.getFile() != null ){
+			try {
+				FileUploadUtility.uploadFile(request, mProduct.getFile(), mProduct.getCode()); 
+			}
+			catch(Exception ex) {}			
+		 }
+		
+		return "redirect:/manage/product?success=product";
+	}
+
+	
 	@RequestMapping(value = "/product/{id}/activation", method=RequestMethod.POST)
 	@ResponseBody
-	public String mhandleProductActivation(@PathVariable int id) 
-	{		
+	public String managePostProductActivation(@PathVariable int id) {		
 		Product product = productDAO.get(id);
 		boolean isActive = product.isActive();
 		product.setActive(!isActive);
 		productDAO.update(product);		
 		return (isActive)? "Product Dectivated Successfully!": "Product Activated Successfully";
 	}
-	
-	
-// returnig categories for all the request mapping 
-	@ModelAttribute("categories")
-	public List<Category> getCategories(){
-		
-		return categoryDAO.list();
 			
+
+	@RequestMapping(value = "/category", method=RequestMethod.POST)
+	public String managePostCategory(@ModelAttribute("category") Category mCategory, HttpServletRequest request) {					
+		categoryDAO.add(mCategory);		
+		return "redirect:" + request.getHeader("Referer") + "?success=category";
 	}
+			
+	
+	
+	@ModelAttribute("categories") 
+	public List<Category> modelCategories() {
+		return categoryDAO.list();
+	}
+	
+	@ModelAttribute("category")
+	public Category modelCategory() {
+		return new Category();
+	}
+	
+	
 }
+
+	

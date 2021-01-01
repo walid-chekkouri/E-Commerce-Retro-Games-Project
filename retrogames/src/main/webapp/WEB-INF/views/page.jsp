@@ -19,7 +19,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>RetroGames- ${title}</title>
+<title>Online Shopping - ${title}</title>
 
 <script>
 	window.menu = '${title}';
@@ -27,12 +27,12 @@
 	window.contextRoot = '${contextRoot}'
 	
 </script>
-
 <!-- Bootstrap Core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
 <!-- Bootstrap Readable Theme -->
-<!--link href="${css}/bootstrap-readable-theme.css" rel="stylesheet"-->
+
+
 
 
 <!-- Bootstrap DataTables -->
@@ -86,12 +86,12 @@
 			<!-- Load only when user clicks show product -->
 			<c:if test="${userClickShowProduct == true}">
 				<%@include file="singleProduct.jsp"%>
-			</c:if>	
-			
-			<!-- Load only when user clicks manage product -->
-			<c:if test="${userClickManageProducts == true}">
-				<%@include file="manageProducts.jsp"%>
 			</c:if>								
+
+			<!-- Load only when user clicks manage product -->
+			<c:if test="${userClickManageProduct == true}">
+				<%@include file="manageProducts.jsp"%>
+			</c:if>	
 
 		</div>
 
@@ -102,6 +102,8 @@
 		<!-- jQuery -->
 		<script src="${js}/jquery.js"></script>
 
+		<script src="${js}/jquery.validate.js"></script>
+
 		<!-- Bootstrap Core JavaScript -->
 		<script src="${js}/bootstrap.min.js"></script>
 		
@@ -111,8 +113,9 @@
 		<!-- DataTable Bootstrap Script -->
 		<script src="${js}/dataTables.bootstrap.js"></script>
 		
-		<!-- Bootbox -->
+		<!-- DataTable Bootstrap Script -->
 		<script src="${js}/bootbox.min.js"></script>
+		
 		
 		<!-- Self coded javascript -->
 		<script src="${js}/myapp.js"></script>
