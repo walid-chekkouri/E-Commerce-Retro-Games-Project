@@ -114,6 +114,18 @@ public class ManagementController {
 	
 	
 	
+	@RequestMapping(value = "/product/{id}/activation", method=RequestMethod.POST)
+	@ResponseBody
+	public String mhandleProductActivation(@PathVariable int id) 
+	{		
+		Product product = productDAO.get(id);
+		boolean isActive = product.isActive();
+		product.setActive(!isActive);
+		productDAO.update(product);		
+		return (isActive)? "Product Dectivated Successfully!": "Product Activated Successfully";
+	}
+	
+	
 // returnig categories for all the request mapping 
 	@ModelAttribute("categories")
 	public List<Category> getCategories(){
