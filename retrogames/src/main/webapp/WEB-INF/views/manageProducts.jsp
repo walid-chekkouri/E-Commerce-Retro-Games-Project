@@ -170,6 +170,7 @@
 				alt="devil may cry"/>
 				</td>
 				<td> devil may cry</td>
+				<td> devil may cry</td>
 				<td>3</td>
 				<td>$ 20.00</td>
 				<td>
@@ -196,6 +197,7 @@
 				<img class="adminDataTableImg" src="${contextRoot}/resources/images/PRDMNO123PQRX.jpg"
 				alt="devil may cry"/>
 				</td>
+				<td> devil may cry</td>
 				<td> devil may cry</td>
 				<td>3</td>
 				<td>$ 20.00</td>
