@@ -13,7 +13,12 @@
 				</div>
 			
 				<div class="panel-body">
-					
+					<div class="text-center">
+						<h3>Name : <strong>${registerModel.user.firstName} ${registerModel.user.lastName}</strong></h3>
+						<h4>Email : <strong>${registerModel.user.email}</strong></h4>
+						<h4>Contact : <strong>${registerModel.user.contactNumber}</strong></h4>
+						<h4>Role : <strong>${registerModel.user.role}</strong></h4>
+					</div>
 				</div>
 				
 				<div class="panel-footer">
@@ -33,7 +38,13 @@
 				</div>
 			
 				<div class="panel-body">
-					
+					<div class="text-center">
+						<p>${registerModel.billing.addressLineOne}, </p>
+						<p>${registerModel.billing.addressLineTwo}, </p>
+						<p>${registerModel.billing.city} -  ${registerModel.billing.postalCode}, </p>
+						<p>${registerModel.billing.state}</p>
+						<p>${registerModel.billing.country}</p>
+					</div>
 				</div>
 				
 				<div class="panel-footer">
@@ -52,7 +63,7 @@
 			
 			<div class="text-center">
 				
-				<a href="${flowExecutionUrl}&_eventId_success" class="btn btn-primary">Confirm</a>
+				<a href="${flowExecutionUrl}&_eventId_submit" class="btn btn-primary">Confirm</a>
 				
 			</div>
 			

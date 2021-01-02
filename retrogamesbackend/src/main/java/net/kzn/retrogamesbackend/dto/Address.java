@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+//import javax.persistence.ManyToOne;
 
 @Entity
 public class Address implements Serializable{
@@ -25,7 +25,7 @@ public class Address implements Serializable{
 	private int id;
 
 	/*-------------*/
-	@ManyToOne
+/*	@ManyToOne
 	private User user;
 	
 	public User getUser() {
@@ -33,7 +33,7 @@ public class Address implements Serializable{
 	}
 	public void setUser(User user) {
 		this.user = user;
-	}
+	}*/
 
 	@Column(name = "address_line_one")
 	private String addressLineOne;
@@ -48,7 +48,15 @@ public class Address implements Serializable{
 	private boolean shipping;
 	@Column(name ="is_billing")
 	private boolean billing;
+	@Column(name = "user_id")
+	private int userId;
 	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	
 	public int getId() {
 		return id;

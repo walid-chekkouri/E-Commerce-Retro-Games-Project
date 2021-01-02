@@ -7,21 +7,39 @@
 	<var name="user" class="net.kzn.retrogamesbackend.dto.User"/>
 	<var name="billing" class="net.kzn.retrogamesbackend.dto.Address"/>
 
+	<!-- returning and adding inside the flow a registerModel instance -->
+	<on-start>
+		<evaluate expression="registerHandler.init()" result="flowScope.registerModel"/>
+	</on-start>
+
+
 	<!-- is the start state -->
 	<view-state id="personal" view="flows/register/signup-personal" model="user">
 		<transition on="billing" to="billing"/>
+		<on-exit>
+			<evaluate expression="registerHandler.addUser(flowScope.registerModel, user)" />			
+		</on-exit>
 	</view-state>
 		
 	<view-state id="billing" view="flows/register/signup-billing" model="billing">
 		<transition on="confirm" to="confirm" />
 		<transition on="personal" to="personal" />
+		<on-exit>
+			<evaluate expression="registerHandler.addBilling(flowScope.registerModel, billing)" />
+		</on-exit>
 	</view-state>
 	
-	<view-state id="confirm" view="flows/register/signup-confirm">
-		<transition on="success" to="success" />
+	<view-state id="confirm" view="flows/register/signup-confirm" model="flowScope.registerModel">
+		<transition on="submit" to="submit" />
 		<transition on="billing" to="billing" />
 		<transition on="personal" to="personal" />
 	</view-state>
+	
+	<action-state id="submit">
+		<evaluate expression="registerHandler.saveAll(flowScope.registerModel)" />
+		<transition on="success" to="success"/>
+	</action-state>
+	
 	
 	<!-- end state -->
 	<end-state id="home" view="externalRedirect:contextRelative:/"/>
