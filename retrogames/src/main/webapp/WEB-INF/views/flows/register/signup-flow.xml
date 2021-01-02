@@ -4,11 +4,28 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
-	<!-- is the start state -->
-	<view-state id="personal" view="flows/register/signup-personal"></view-state>
+	<var name="user" class="net.kzn.retrogamesbackend.dto.User"/>
+	<var name="billing" class="net.kzn.retrogamesbackend.dto.Address"/>
 
+	<!-- is the start state -->
+	<view-state id="personal" view="flows/register/signup-personal" model="user">
+		<transition on="billing" to="billing"/>
+	</view-state>
+		
+	<view-state id="billing" view="flows/register/signup-billing" model="billing">
+		<transition on="confirm" to="confirm" />
+		<transition on="personal" to="personal" />
+	</view-state>
+	
+	<view-state id="confirm" view="flows/register/signup-confirm">
+		<transition on="success" to="success" />
+		<transition on="billing" to="billing" />
+		<transition on="personal" to="personal" />
+	</view-state>
+	
 	<!-- end state -->
 	<end-state id="home" view="externalRedirect:contextRelative:/"/>
+	<end-state id="success" view="flows/register/signup-success" />
 
 	<!-- Global Transition -->
 	<global-transitions>
